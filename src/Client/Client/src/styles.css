@@ -1,0 +1,17 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+.debug {
+    border: 2px solid red !important;
+    & > * {
+        border: 2px solid green !important;
+        & > * {
+            border: 2px solid blue !important;
+        }
+    }
+}
+

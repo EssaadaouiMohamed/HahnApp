@@ -1,0 +1,26 @@
+
+.login-card {
+  max-width: max-content;
+  margin: auto;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 1em;
+}
+
+mat-card-header {
+  padding: 16px;
+  place-self: center;
+}

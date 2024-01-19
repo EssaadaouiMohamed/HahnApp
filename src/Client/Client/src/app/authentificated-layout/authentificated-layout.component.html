@@ -1,0 +1,38 @@
+
+<div style="flex-grow:1; justify-content:center" class="app-container">
+  <div class="app-container">
+    <mat-toolbar color="primary">
+      <span>Hahn App</span>
+    </mat-toolbar>
+    <div style="flex-grow:1; display:flex;">
+
+      <mat-sidenav #drawer class="sidenav" fixedInViewport [opened]="true">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+
+          <a mat-list-item fxLayout="row" fxLayoutAlign="start center" [routerLink]="['/dashboard']">
+            <div class="route-name">
+              <mat-icon>dashboard</mat-icon>
+              <span>Dashboard</span>
+            </div>
+            
+          </a>
+          <a mat-list-item fxLayout="row" fxLayoutAlign="start center"  [routerLink]="['/users']">
+            <div class="route-name">
+              <mat-icon>people</mat-icon>
+              <span>Users</span>
+            </div>
+            
+          </a>
+        </mat-nav-list>
+        <button mat-fab extended (click)="logout()" class="logout-button" color="primary" >
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </button>
+      </mat-sidenav>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+</div>

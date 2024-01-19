@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>HahnApp.Domain</RootNamespace>
+    <AssemblyName>HahnApp.Domain</AssemblyName>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.7.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\Catalog\" />
+    <Folder Include="Entities\Misc\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+</Project>

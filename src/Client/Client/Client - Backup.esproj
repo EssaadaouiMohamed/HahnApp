@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.127-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Allows the build (or compile) script located on package.json to run on Build -->
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+    <!-- Folder where production build objects will be placed -->
+    <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist\Client\</PublishAssetsDirectory>
+    <StartupCommandWorkingDirectory>C:\Users\Microsoft Surface\source\repos\HahnApp\src\Client\Client\</StartupCommandWorkingDirectory>
+    <PackageJsonDirectory>C:\Users\Microsoft Surface\source\repos\HahnApp\src\Client\Client\</PackageJsonDirectory>
+    <BuildCommand>ng start</BuildCommand>
+  </PropertyGroup>
+</Project>
