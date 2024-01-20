@@ -8,7 +8,6 @@
     <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist\test.client\</PublishAssetsDirectory>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\app\authentificated-layout\NewFolder\" />
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\pages\" />
   </ItemGroup>

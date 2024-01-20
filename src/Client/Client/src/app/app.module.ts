@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +12,8 @@ import { AuthentificatedLayoutModule } from './authentificated-layout/authentifi
 import { AuthentificatedLayoutComponent } from './authentificated-layout/authentificated-layout.component';
 import { AuthModule } from './auth/auth.module';
 import { HttpService } from './services/http-service-provider.service';
+import { UserProfileComponent } from './authentificated-layout/user-profile/user-profile.component';
+import { SharedModule } from './shared/shared.module';
 const routes: Routes = [
   // Define routes
 ];
@@ -25,8 +27,15 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     AuthentificatedLayoutModule,
     AuthModule,
+    SharedModule
   ],
-  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpService,
+    multi: true
+  },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+
     JwtHelperService, HttpService],
   bootstrap: [AppComponent]
 })

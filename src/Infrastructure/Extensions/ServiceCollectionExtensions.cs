@@ -26,18 +26,9 @@ namespace HahnApp.Infrastructure.Extensions
         {
             return services
                 .AddTransient(typeof(IRepositoryAsync<,>), typeof(RepositoryAsync<,>))
-                .AddTransient<IProductRepository, ProductRepository>()
-                .AddTransient<IBrandRepository, BrandRepository>()
-                .AddTransient<IDocumentRepository, DocumentRepository>()
-                .AddTransient<IDocumentTypeRepository, DocumentTypeRepository>()
                 .AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         }
 
-        public static IServiceCollection AddExtendedAttributesUnitOfWork(this IServiceCollection services)
-        {
-            return services
-                .AddTransient(typeof(IExtendedAttributeUnitOfWork<,,>), typeof(ExtendedAttributeUnitOfWork<,,>));
-        }
 
         public static IServiceCollection AddServerStorage(this IServiceCollection services)
             => AddServerStorage(services, null);

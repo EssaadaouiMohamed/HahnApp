@@ -6,6 +6,7 @@ import { HttpService } from './http-service-provider.service';
 import { TokenResponse } from '../models/tokenResponse';
 import { HttpResponse } from '@angular/common/http';
 import { ApiResponse } from '../models/apiResponse';
+import { UserClaims } from '../models/userClaims';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ import { ApiResponse } from '../models/apiResponse';
 export class AccountService {
 
   private isAuth = new BehaviorSubject<boolean>(false);
+  private userClaims!: UserClaims | null;
   constructor(private http: HttpService, private jwtHelperService: JwtHelperService) { }
 
   async login(credentials: LoginForm): Promise<boolean> {
@@ -22,9 +24,11 @@ export class AccountService {
 
       if (response && response.succeeded) {
         this.saveLoginData(response.data);
+        let decodedJwt = await this.jwtHelperService.decodeToken(response.data.token);
+        this.userClaims = this.fillUserClaimsFromDecodedToken(decodedJwt);
         this.isAuth.next(true);
       } else {
-        console.log("blabla");
+        console.log(response?.messages[0]);
       }
 
       return this.isLoggedIn;
@@ -41,7 +45,7 @@ export class AccountService {
     localStorage.setItem('refresh_token_expiry', response.refreshTokenExpiryTime);
   }
 
-   get isAuthenticated() {
+   async  isAuthenticated() {
     const token = localStorage.getItem('jwt_token');
      if (!token) {
        
@@ -51,7 +55,9 @@ export class AccountService {
      try {
        if (this.jwtHelperService.isTokenExpired(token)) {
          return this.isAuth.asObservable();
-      }
+       }
+       let decodedJwt = await this.jwtHelperService.decodeToken(token);
+       this.userClaims = this.fillUserClaimsFromDecodedToken(decodedJwt);
        this.isAuth.next(true);
        return this.isAuth.asObservable();
 
@@ -61,10 +67,14 @@ export class AccountService {
     }
   }
 
-  // Method to check current value of isAuth without subscribing
   get isLoggedIn() {
     return this.isAuth.getValue();
   }
+
+  get getUserClaims() {
+    return this.userClaims;
+  }
+
   refreshToken() {
   }
 
@@ -75,4 +85,18 @@ export class AccountService {
     localStorage.removeItem('refresh_token_expiry');
     this.isAuth.next(false);
   }
+
+  private fillUserClaimsFromDecodedToken(decodedJwt: any): UserClaims {
+  return {
+    nameidentifier: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
+    exp: decodedJwt.exp,
+    role: decodedJwt['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
+    emailaddress: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+    mobilephone: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'],
+    name: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+    surname: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
+    permissions: decodedJwt.Permission // Assuming Permission contains an array of permissions
+  };
+}
+
 }

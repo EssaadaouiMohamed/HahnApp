@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { AccountService } from '../app/services/account.service'
 import { Observable } from 'rxjs';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
 import { RouterModule, Routes, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
@@ -15,7 +13,7 @@ export class AppComponent implements OnInit {
   
   constructor(private http: HttpClient, private accountService: AccountService, private router: Router) { }
 
-  ngOnInit() {
-    this.isAuth = this.accountService.isAuthenticated;
+  async ngOnInit() {
+    this.isAuth = await this.accountService.isAuthenticated();
   }
 }
