@@ -9,10 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [],
+  declarations: [ 
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -24,6 +26,9 @@ import { BrowserModule } from '@angular/platform-browser';
     MatListModule,
     FormsModule,
     BrowserModule,
+    MatProgressBarModule,
+    MatDialogModule
+
   ],
   exports: [
     MatInputModule,
@@ -35,6 +40,8 @@ import { BrowserModule } from '@angular/platform-browser';
     MatListModule,
     FormsModule,
     BrowserModule,
+    MatProgressBarModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

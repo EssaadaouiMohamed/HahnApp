@@ -8,5 +8,5 @@ export interface UpdateProfilePictureRequest {
   fileName?: string;
   extension?: string;
   uploadType: UploadType;
-  data?: Uint8Array;
+  data?: string;
 }

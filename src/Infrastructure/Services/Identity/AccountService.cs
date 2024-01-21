@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using System;
+using System.IO;
 
 namespace HahnApp.Infrastructure.Services.Identity
 {
@@ -91,7 +93,22 @@ namespace HahnApp.Infrastructure.Services.Identity
             {
                 return await Result<string>.FailAsync(_localizer["User Not Found"]);
             }
-            return await Result<string>.SuccessAsync(data: user.ProfilePictureDataUrl);
+            byte[] imageBytes;
+            try
+            {
+                imageBytes = File.ReadAllBytes(user.ProfilePictureDataUrl);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error reading file", ex);
+            }
+
+            // Convert byte array to Base64 string
+            string base64String = Convert.ToBase64String(imageBytes);
+
+            // Optional: prepend a data URI scheme if needed (e.g., for inline embedding in web pages)
+            string mimeType = GetMimeType(user.ProfilePictureDataUrl);
+            return await Result<string>.SuccessAsync(data: $"data:{mimeType};base64,{base64String}");
         }
 
         public async Task<IResult<string>> UpdateProfilePictureAsync(UpdateProfilePictureRequest request, string userId)
@@ -103,6 +120,22 @@ namespace HahnApp.Infrastructure.Services.Identity
             var identityResult = await _userManager.UpdateAsync(user);
             var errors = identityResult.Errors.Select(e => _localizer[e.Description].ToString()).ToList();
             return identityResult.Succeeded ? await Result<string>.SuccessAsync(data: filePath) : await Result<string>.FailAsync(errors);
+        }
+        private static string GetMimeType(string filePath)
+        {
+            // Basic implementation - adjust as necessary for your requirements
+            string extension = Path.GetExtension(filePath).ToLowerInvariant();
+            switch (extension)
+            {
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+                case ".png":
+                    return "image/png";
+                // Add more cases for other image types as needed
+                default:
+                    return "application/octet-stream";
+            }
         }
     }
 }

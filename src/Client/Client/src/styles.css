@@ -5,7 +5,16 @@ html, body {
   width: 100%;
   margin: 0;
 }
-.debug {
+.snackbar-success {
+  color: white;
+  background-color: green;
+}
+
+.snackbar-error {
+  color: white;
+  background-color: red;
+}
+./*debug {
     border: 2px solid red !important;
     & > * {
         border: 2px solid green !important;
@@ -13,5 +22,5 @@ html, body {
             border: 2px solid blue !important;
         }
     }
-}
+}*/
 

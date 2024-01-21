@@ -52,7 +52,7 @@ export class AccountService {
   async getProfilePictureAsync(): Promise<TResult<string>> {
     const userClaims = this.authentification.getUserClaims;
     if (userClaims?.nameidentifier) {
-      const response$ = this.http.get<TResult<string>>(`api/identity/user/${userClaims.nameidentifier}`);
+      const response$ = this.http.get<TResult<string>>(`api/identity/account/profile-picture/${userClaims.nameidentifier}`);
       const response = await firstValueFrom(response$);
 
       if (response.succeeded) {
@@ -69,7 +69,7 @@ export class AccountService {
   async updateProfilePictureAsync(req: UpdateProfilePictureRequest): Promise<TResult<string>> {
     const userClaims = this.authentification.getUserClaims;
     if (userClaims?.nameidentifier && req) {
-      const response$ = this.http.post<TResult<string>>(`api/identity/user/${userClaims.nameidentifier}`, req);
+      const response$ = this.http.post<TResult<string>>(`api/identity/account/profile-picture/${userClaims.nameidentifier}`, req);
       const response = await firstValueFrom(response$);
 
       if (response.succeeded) {

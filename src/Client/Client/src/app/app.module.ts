@@ -14,12 +14,14 @@ import { AuthModule } from './auth/auth.module';
 import { HttpService } from './services/http-service-provider.service';
 import { UserProfileComponent } from './authentificated-layout/user-profile/user-profile.component';
 import { SharedModule } from './shared/shared.module';
+import { RegisterUserComponentComponent } from './authentificted-layout/user-list/register-user-component/register-user-component.component';
 const routes: Routes = [
   // Define routes
 ];
 @NgModule({
   declarations: [
     AppComponent,
+    RegisterUserComponentComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,

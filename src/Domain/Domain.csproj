@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Catalog\" />
-    <Folder Include="Entities\Misc\" />
+    <Folder Include="Entities\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 

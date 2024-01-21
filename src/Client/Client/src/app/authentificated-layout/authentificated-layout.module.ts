@@ -7,13 +7,15 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SharedModule } from '../shared/shared.module';
+import { RegisterUserComponent } from './users-list/register-user/register-user.component';
 
 @NgModule({
   declarations: [
     AuthentificatedLayoutComponent,
     DashboardComponent,
     UsersListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    RegisterUserComponent
   ],
   imports: [
     SharedModule,

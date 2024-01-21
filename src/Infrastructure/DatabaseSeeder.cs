@@ -60,10 +60,10 @@ namespace HahnApp.Infrastructure
                 //Check if User Exists
                 var superUser = new CustomUser
                 {
-                    FirstName = "Mukesh",
-                    LastName = "Murugan",
+                    FirstName = "Mohammed",
+                    LastName = "Essaadaoui",
                     Email = "mohamedessaadaoui02@gmail.com",
-                    UserName = "mukesh",
+                    UserName = "messaada",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     CreatedOn = DateTime.Now,

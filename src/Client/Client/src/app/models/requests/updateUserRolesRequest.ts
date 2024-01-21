@@ -1,4 +1,5 @@
-import { UserRoleModel } from "../responses/UserRolesResponse";
+import { UserRoleModel } from "../responses/userRolesResponse";
+
 
 export interface UpdateUserRolesRequest {
   userId: string;

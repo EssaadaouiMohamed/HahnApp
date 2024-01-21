@@ -1,6 +1,7 @@
 ﻿using HahnApp.Application.Extensions;
 using HahnApp.Application.Interfaces.Services;
 using HahnApp.Application.Requests;
+using System;
 using System.IO;
 
 namespace HahnApp.Infrastructure.Services
@@ -10,7 +11,14 @@ namespace HahnApp.Infrastructure.Services
         public string UploadAsync(UploadRequest request)
         {
             if (request.Data == null) return string.Empty;
-            var streamData = new MemoryStream(request.Data);
+            string data = request.Data;
+            int indexOfBase64Start = data.IndexOf("base64,");
+            if (indexOfBase64Start != -1)
+            {
+                // Strip out the prefix
+                data = data.Substring(indexOfBase64Start + 7);
+            }
+            var streamData = new MemoryStream(Convert.FromBase64String(data));
             if (streamData.Length > 0)
             {
                 var folder = request.UploadType.ToDescriptionString();

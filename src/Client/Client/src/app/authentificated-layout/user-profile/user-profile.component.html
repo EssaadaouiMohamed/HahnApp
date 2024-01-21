@@ -1,41 +1,53 @@
+<ng-container *ngIf="isLoading; else content">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
 
-<mat-card>
-  <div style="flex-direction:column;">
+<ng-template #content>
+  <mat-card>
+    <div style="flex-direction:column;">
 
-  <div class="profile-picture-container">
-    <img *ngIf="user.profilePictureDataUrl; else defaultImage" [src]="user.profilePictureDataUrl" alt="Profile Picture" class="profile-picture" />
-    <ng-template #defaultImage>
-      <img src="./assets/profile-picture.png" alt="Profile Picture" class="profile-picture" />
-    </ng-template>
-  </div>
-  <div style="display:flex; gap:10px; flex-direction:row; width:100%; justify-content:center;margin: 10px 0px;">
-    <button mat-raised-button color="primary">Change</button>
-    <input type="file" id="profilePicture" name="profilePicture" (change)="uploadFile($event)" hidden>
-    <button mat-raised-button color="default">Delete</button>
-  </div>
-  </div>
-  <form>
-    <mat-form-field appearance="fill">
-      <mat-label>First Name</mat-label>
-      <input matInput placeholder="First Name" [(ngModel)]="user.firstName" name="firstName">
-    </mat-form-field>
+      <div class="profile-picture-container">
+        <img *ngIf="profilePictureData; else defaultImage" [src]="profilePictureData" alt="Profile Picture" class="profile-picture" />
+        <ng-template #defaultImage>
+          <img src="./assets/profile-picture.png" alt="Profile Picture" class="profile-picture" />
+        </ng-template>
+      </div>
+      <div style="display:flex; gap:10px; flex-direction:row; width:100%; justify-content:center;margin: 10px 0px;">
+        <input type="file" class="file-input"
+               (change)="uploadFile($event)" #fileUpload hidden>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Last Name</mat-label>
-      <input matInput [(ngModel)]="user.lastName" name="lastName">
-    </mat-form-field>
+        <div class="file-upload">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Phone Number</mat-label>
-      <input matInput [(ngModel)]="user.phoneNumber" name="phoneNumber">
-    </mat-form-field>
+          <button mat-raised-button color="primary" class="upload-btn"
+                  (click)="fileUpload.click()">
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+    <form>
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="user.firstName" name="firstName">
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email Address</mat-label>
-      <input matInput type="email" [(ngModel)]="user.email" name="email">
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="user.lastName" name="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Phone Number</mat-label>
+        <input matInput [(ngModel)]="user.phoneNumber" name="phoneNumber">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" [(ngModel)]="user.email" name="email">
+      </mat-form-field>
 
 
-    <button mat-raised-button color="primary">Edit</button>
-  </form>
-</mat-card>
+      <button mat-raised-button color="primary" (click)="updateProfile()">Edit</button>
+    </form>
+  </mat-card>
+</ng-template>

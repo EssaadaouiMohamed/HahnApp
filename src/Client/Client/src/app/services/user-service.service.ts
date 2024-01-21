@@ -6,9 +6,9 @@ import { Result, TResult } from '../models/wrappers';
 import { firstValueFrom } from 'rxjs';
 import { AuthentificationService } from './authentification.service';
 import { RegisterUserRequest } from '../models/requests/registerUserRequest';
-import { UserRolesResponse } from '../models/responses/UserRolesResponse';
 import { UpdateUserRolesRequest } from '../models/requests/updateUserRolesRequest';
 import { ResetPasswordRequest } from '../models/requests/resetPasswordRequest';
+import { UserRolesResponse } from '../models/responses/userRolesResponse';
 @Injectable({
   providedIn: 'root'
 })

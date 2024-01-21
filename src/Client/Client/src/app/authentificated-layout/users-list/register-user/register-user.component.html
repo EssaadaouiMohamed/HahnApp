@@ -1,0 +1,25 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Username</label>
+    <input formControlName="userName">
+  </div>
+  <div>
+    <label>First Name</label>
+    <input formControlName="firstName">
+  </div>
+  <div>
+    <label>Last Name</label>
+    <input formControlName="lastName">
+  </div>
+  <div>
+    <label>Email</label>
+    <input formControlName="email">
+  </div>
+  <div>
+    <label>Phone Number</label>
+    <input formControlName="phoneNumber">
+  </div>
+  <div>
+    <button type="submit">Register</button>
+  </div>
+</form>
