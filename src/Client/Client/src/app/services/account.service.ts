@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LoginForm } from '../models/loginForm';
 import { firstValueFrom, BehaviorSubject, Observable } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpService } from './http-service-provider.service';
-import { TokenResponse } from '../models/tokenResponse';
-import { HttpResponse } from '@angular/common/http';
-import { ApiResponse } from '../models/apiResponse';
-import { UserClaims } from '../models/userClaims';
+import { AuthentificationService } from './authentification.service';
+import { Result, TResult } from '../models/wrappers';
+import { UpdateProfileRequest } from '../models/requests/updateProfileRequest';
+import { UpdateProfilePictureRequest } from '../models/requests/profilePictureRequest';
+import { ChangePasswordRequest } from '../models/requests/changePasswordRequest';
 
 
 @Injectable({
@@ -14,89 +13,73 @@ import { UserClaims } from '../models/userClaims';
 })
 export class AccountService {
 
-  private isAuth = new BehaviorSubject<boolean>(false);
-  private userClaims!: UserClaims | null;
-  constructor(private http: HttpService, private jwtHelperService: JwtHelperService) { }
 
-  async login(credentials: LoginForm): Promise<boolean> {
-    try {
-      const response = await this.http.post<ApiResponse<TokenResponse>>('api/identity/token', credentials).toPromise();
+  constructor(private http: HttpService, private authentification: AuthentificationService) { }
 
-      if (response && response.succeeded) {
-        this.saveLoginData(response.data);
-        let decodedJwt = await this.jwtHelperService.decodeToken(response.data.token);
-        this.userClaims = this.fillUserClaimsFromDecodedToken(decodedJwt);
-        this.isAuth.next(true);
+  async updateProfile(req: UpdateProfileRequest): Promise<Result> {
+    const userClaims = this.authentification.getUserClaims;
+    if (userClaims?.nameidentifier) {
+      const response$ = this.http.put<Result>(`api/identity/account/UpdateProfile`, req);
+      const response = await firstValueFrom(response$);
+
+      if (response.succeeded) {
+        return response;
       } else {
-        console.log(response?.messages[0]);
+        console.log(response.messages[0]);
+        throw new Error(response.messages[0]);
       }
-
-      return this.isLoggedIn;
-    } catch (error) {
-      console.error(error);
-      throw error;
+    } else {
+      throw new Error('User claims not found');
     }
   }
 
-  saveLoginData(response: TokenResponse) {
-    localStorage.setItem('jwt_token', response.token);
-    localStorage.setItem('refresh_token', response.refreshToken);
-    localStorage.setItem('user_image_url', response.userImageUrl);
-    localStorage.setItem('refresh_token_expiry', response.refreshTokenExpiryTime);
-  }
+  async changePassword(req: ChangePasswordRequest): Promise<Result> {
+    if (req) {
+      const response$ = this.http.put<Result>(`api/identity/account/ChangePassword`, req);
+      const response = await firstValueFrom(response$);
 
-   async  isAuthenticated() {
-    const token = localStorage.getItem('jwt_token');
-     if (!token) {
-       
-       return this.isAuth.asObservable();
-     }
-
-     try {
-       if (this.jwtHelperService.isTokenExpired(token)) {
-         return this.isAuth.asObservable();
-       }
-       let decodedJwt = await this.jwtHelperService.decodeToken(token);
-       this.userClaims = this.fillUserClaimsFromDecodedToken(decodedJwt);
-       this.isAuth.next(true);
-       return this.isAuth.asObservable();
-
-    } catch (e) {
-      console.error('Error decoding the token', e);
-       return this.isAuth.asObservable();
+      if (response.succeeded) {
+        return response;
+      } else {
+        console.log(response.messages[0]);
+        throw new Error(response.messages[0]);
+      }
+    } else {
+      throw new Error('User claims not found');
     }
   }
 
-  get isLoggedIn() {
-    return this.isAuth.getValue();
+  async getProfilePictureAsync(): Promise<TResult<string>> {
+    const userClaims = this.authentification.getUserClaims;
+    if (userClaims?.nameidentifier) {
+      const response$ = this.http.get<TResult<string>>(`api/identity/user/${userClaims.nameidentifier}`);
+      const response = await firstValueFrom(response$);
+
+      if (response.succeeded) {
+        return response;
+      } else {
+        console.log(response.messages[0]);
+        throw new Error(response.messages[0]);
+      }
+    } else {
+      throw new Error('User claims not found');
+    }
   }
 
-  get getUserClaims() {
-    return this.userClaims;
+  async updateProfilePictureAsync(req: UpdateProfilePictureRequest): Promise<TResult<string>> {
+    const userClaims = this.authentification.getUserClaims;
+    if (userClaims?.nameidentifier && req) {
+      const response$ = this.http.post<TResult<string>>(`api/identity/user/${userClaims.nameidentifier}`, req);
+      const response = await firstValueFrom(response$);
+
+      if (response.succeeded) {
+        return response;
+      } else {
+        console.log(response.messages[0]);
+        throw new Error(response.messages[0]);
+      }
+    } else {
+      throw new Error('User claims not found');
+    }
   }
-
-  refreshToken() {
-  }
-
-  logout() {
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user_image_url');
-    localStorage.removeItem('refresh_token_expiry');
-    this.isAuth.next(false);
-  }
-
-  private fillUserClaimsFromDecodedToken(decodedJwt: any): UserClaims {
-  return {
-    nameidentifier: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
-    exp: decodedJwt.exp,
-    role: decodedJwt['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
-    emailaddress: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
-    mobilephone: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'],
-    name: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
-    surname: decodedJwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
-    permissions: decodedJwt.Permission // Assuming Permission contains an array of permissions
-  };
-}
-
 }

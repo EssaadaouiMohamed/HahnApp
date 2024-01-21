@@ -1,10 +1,18 @@
 
 <mat-card>
+  <div style="flex-direction:column;">
+
   <div class="profile-picture-container">
     <img *ngIf="user.profilePictureDataUrl; else defaultImage" [src]="user.profilePictureDataUrl" alt="Profile Picture" class="profile-picture" />
     <ng-template #defaultImage>
       <img src="./assets/profile-picture.png" alt="Profile Picture" class="profile-picture" />
     </ng-template>
+  </div>
+  <div style="display:flex; gap:10px; flex-direction:row; width:100%; justify-content:center;margin: 10px 0px;">
+    <button mat-raised-button color="primary">Change</button>
+    <input type="file" id="profilePicture" name="profilePicture" (change)="uploadFile($event)" hidden>
+    <button mat-raised-button color="default">Delete</button>
+  </div>
   </div>
   <form>
     <mat-form-field appearance="fill">

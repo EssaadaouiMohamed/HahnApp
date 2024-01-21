@@ -1,5 +1,5 @@
 mat-form-field {
-  width: 100%;
+  
 }
 
 form{
@@ -23,7 +23,7 @@ button {
 .profile-picture-container {
   width: 200px;
   height: 200px;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 50%;
   overflow: hidden;
   display: flex;

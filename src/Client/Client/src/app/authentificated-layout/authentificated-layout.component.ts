@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
-import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
+import { AuthentificationService } from '../services/authentification.service';
 
 @Component({
   selector: 'app-authentificated-layout',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './authentificated-layout.component.css'
 })
 export class AuthentificatedLayoutComponent {
-  constructor(private accountService: AccountService, private router: Router) { }
+  constructor(private authService: AuthentificationService, private router: Router) { }
 
   private breakpointObserver = inject(BreakpointObserver);
 
@@ -22,7 +22,7 @@ export class AuthentificatedLayoutComponent {
   );
 
   logout() {
-    this.accountService.logout();
+    this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
 }
