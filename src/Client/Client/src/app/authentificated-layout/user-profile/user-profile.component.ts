@@ -82,7 +82,7 @@ export class UserProfileComponent implements OnInit {
           await this.loadData();
         } else {
           result.messages.forEach(error => {
-            this.snackBar.open(error);
+            this.snackBar.openSnackBar(error, 'error');
           });
         }
       } catch (error) {

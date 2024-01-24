@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [ 
@@ -27,8 +31,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     BrowserModule,
     MatProgressBarModule,
-    MatDialogModule
-
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatMenuModule,
+    MatCheckboxModule
   ],
   exports: [
     MatInputModule,
@@ -41,7 +48,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     BrowserModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatMenuModule,
+    MatCheckboxModule
   ]
 })
 export class SharedModule { }

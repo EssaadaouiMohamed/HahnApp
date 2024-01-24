@@ -4,6 +4,7 @@ import { UserService } from '../../services/user-service.service';
 import { CustomSnackbarService } from '../../services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterUserComponent } from './register-user/register-user.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
@@ -11,10 +12,10 @@ import { RegisterUserComponent } from './register-user/register-user.component';
   styleUrl: './users-list.component.css'
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'userName', 'firstName', 'lastName', 'email', 'isActive', 'emailConfirmed', 'phoneNumber', 'profilePictureDataUrl'];
+  displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'email', 'isActive', 'emailConfirmed', 'actions'];
   dataSource: UserResponse[] = [];
   isLoading: boolean = true;
-  constructor(private userService: UserService, private snackBar: CustomSnackbarService, private dialog: MatDialog) { }
+  constructor(private userService: UserService, private snackBar: CustomSnackbarService, private dialog: MatDialog, private router: Router) { }
   async ngOnInit(): Promise<void> {
     await this.loadData();
       this.isLoading = false;
@@ -30,8 +31,12 @@ export class UsersListComponent implements OnInit {
 
   openRegisterUserPopup(): void {
     this.dialog.open(RegisterUserComponent, {
-      width: '300px'
+      width: 'max-content',
+      height: '80vh'
     });
   }
 
+  manageRoles(id: string) {
+    this.router.navigate(['/user-roles', id]);
+  }
 }

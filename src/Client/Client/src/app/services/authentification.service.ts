@@ -4,9 +4,9 @@ import { firstValueFrom, BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpService } from './http-service-provider.service';
 import { TokenResponse } from '../models/responses/tokenResponse';
-import { UserClaims } from '../models/userClaims';
 import { TResult } from '../models/wrappers';
 import { RefreshTokenRequest } from '../models/requests/refreshTokenRequest';
+import { UserClaims } from '../models/responses/userClaims';
 
 
 @Injectable({

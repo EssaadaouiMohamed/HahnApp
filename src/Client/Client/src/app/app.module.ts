@@ -5,23 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthentificatedLayoutModule } from './authentificated-layout/authentificated-layout.module';
-import { AuthentificatedLayoutComponent } from './authentificated-layout/authentificated-layout.component';
 import { AuthModule } from './auth/auth.module';
 import { HttpService } from './services/http-service-provider.service';
-import { UserProfileComponent } from './authentificated-layout/user-profile/user-profile.component';
 import { SharedModule } from './shared/shared.module';
-import { RegisterUserComponentComponent } from './authentificted-layout/user-list/register-user-component/register-user-component.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
   // Define routes
 ];
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterUserComponentComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,
@@ -29,7 +24,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     AuthentificatedLayoutModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

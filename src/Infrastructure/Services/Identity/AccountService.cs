@@ -93,14 +93,18 @@ namespace HahnApp.Infrastructure.Services.Identity
             {
                 return await Result<string>.FailAsync(_localizer["User Not Found"]);
             }
-            byte[] imageBytes;
-            try
+            byte[] imageBytes = null;
+            if(!string.IsNullOrEmpty(user.ProfilePictureDataUrl))
             {
-                imageBytes = File.ReadAllBytes(user.ProfilePictureDataUrl);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error reading file", ex);
+                try
+                {
+               
+                    imageBytes = File.ReadAllBytes(user.ProfilePictureDataUrl);
+                }
+                catch (Exception ex)
+                {
+                    return await Result<string>.FailAsync($"{ex.Message}");
+                }
             }
 
             // Convert byte array to Base64 string

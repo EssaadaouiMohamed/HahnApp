@@ -7,6 +7,7 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './authentificated-layout/dashboard/dashboard.component';
 import { UserProfileComponent } from './authentificated-layout/user-profile/user-profile.component';
 import { UsersListComponent } from './authentificated-layout/users-list/users-list.component';
+import { UserRolesComponent } from './authentificated-layout/user-roles/user-roles.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,8 @@ const routes: Routes = [
   {
     path: '', component: AuthentificatedLayoutComponent, canActivate: [AuthGuardService],
   children:
-  [
-      { path: 'dashboard', component: DashboardComponent },
+    [
+      { path: 'user-roles/:id', component: UserRolesComponent },
       { path: 'users', component: UsersListComponent },
       { path: 'user-profile', component: UserProfileComponent }
   ]},
