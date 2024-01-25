@@ -7,28 +7,7 @@ namespace HahnApp.Shared.Constants.Permission
 {
     public static class Permissions
     {
-        [DisplayName("Documents")]
-        [Description("Documents Permissions")]
-        public static class Documents
-        {
-            public const string View = "Permissions.Documents.View";
-            public const string Create = "Permissions.Documents.Create";
-            public const string Edit = "Permissions.Documents.Edit";
-            public const string Delete = "Permissions.Documents.Delete";
-            public const string Search = "Permissions.Documents.Search";
-        }
-
-        [DisplayName("Document Types")]
-        [Description("Document Types Permissions")]
-        public static class DocumentTypes
-        {
-            public const string View = "Permissions.DocumentTypes.View";
-            public const string Create = "Permissions.DocumentTypes.Create";
-            public const string Edit = "Permissions.DocumentTypes.Edit";
-            public const string Delete = "Permissions.DocumentTypes.Delete";
-            public const string Export = "Permissions.DocumentTypes.Export";
-            public const string Search = "Permissions.DocumentTypes.Search";
-        }
+        
 
         [DisplayName("Users")]
         [Description("Users Permissions")]
@@ -64,35 +43,6 @@ namespace HahnApp.Shared.Constants.Permission
             public const string Search = "Permissions.RoleClaims.Search";
         }
 
-        [DisplayName("Communication")]
-        [Description("Communication Permissions")]
-        public static class Communication
-        {
-            public const string Chat = "Permissions.Communication.Chat";
-        }
-
-        [DisplayName("Preferences")]
-        [Description("Preferences Permissions")]
-        public static class Preferences
-        {
-            public const string ChangeLanguage = "Permissions.Preferences.ChangeLanguage";
-
-            //TODO - add permissions
-        }
-
-        [DisplayName("Dashboards")]
-        [Description("Dashboards Permissions")]
-        public static class Dashboards
-        {
-            public const string View = "Permissions.Dashboards.View";
-        }
-
-        [DisplayName("Hangfire")]
-        [Description("Hangfire Permissions")]
-        public static class Hangfire
-        {
-            public const string View = "Permissions.Hangfire.View";
-        }
 
         [DisplayName("Audit Trails")]
         [Description("Audit Trails Permissions")]
@@ -103,10 +53,6 @@ namespace HahnApp.Shared.Constants.Permission
             public const string Search = "Permissions.AuditTrails.Search";
         }
 
-        /// <summary>
-        /// Returns a list of Permissions.
-        /// </summary>
-        /// <returns></returns>
         public static List<string> GetRegisteredPermissions()
         {
             var permissions = new List<string>();

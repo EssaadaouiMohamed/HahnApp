@@ -13,7 +13,7 @@ export class RoleService {
 
   constructor(private http: HttpService) { }
 
-  async getAll(req: string): Promise<TResult<Array<RoleResponse>>> {
+  async getAll(): Promise<TResult<Array<RoleResponse>>> {
     
     const response$ = this.http.get<TResult<Array<RoleResponse>>>(`api/identity/role`);
       const response = await firstValueFrom(response$);

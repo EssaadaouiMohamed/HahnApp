@@ -12,7 +12,7 @@ import { HttpService } from './services/http-service-provider.service';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
-  // Define routes
+
 ];
 @NgModule({
   declarations: [

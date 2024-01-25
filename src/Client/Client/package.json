@@ -25,6 +25,7 @@
     "@angular/router": "^17.0.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@types/jwt-decode": "^3.1.0",
+    "class-transformer": "^0.5.1",
     "jest-editor-support": "*",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",

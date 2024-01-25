@@ -67,10 +67,10 @@ export class UserService {
     }
   }
 
-  async getUserRoles(): Promise<TResult<UserRolesResponse>> {
+  async getUserRoles(userId: string): Promise<TResult<UserRolesResponse>> {
     const userClaims = this.authService.getUserClaims;
     if (userClaims?.nameidentifier) {
-      const response$ = this.http.get<TResult<UserRolesResponse>>(`api/identity/user/roles/${userClaims.nameidentifier}`);
+      const response$ = this.http.get<TResult<UserRolesResponse>>(`api/identity/user/roles/${userId}`);
       const response = await firstValueFrom(response$);
 
       if (response.succeeded) {
@@ -85,9 +85,8 @@ export class UserService {
   }
 
   async updateUserRoles(req: UpdateUserRolesRequest): Promise<Result> {
-    const userClaims = this.authService.getUserClaims;
-    if (userClaims?.nameidentifier) {
-      const response$ = this.http.put<Result>(`api/identity/user/roles/${userClaims.nameidentifier}`, req);
+    
+      const response$ = this.http.put<Result>(`api/identity/user/roles/${req.userId}`, req);
       const response = await firstValueFrom(response$);
 
       if (response.succeeded) {
@@ -96,9 +95,6 @@ export class UserService {
         console.log(response.messages[0]);
         throw new Error(response.messages[0]);
       }
-    } else {
-      throw new Error('User claims not found');
-    }
   }
 
   async forgotPassword(req: string): Promise<Result> {

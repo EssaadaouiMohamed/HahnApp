@@ -1,13 +1,14 @@
-export interface RoleClaimRequest {
-  id: number;
-  roleId: string;
-  type: string;
-  value: string;
-  description: string;
-  group: string;
-  selected: boolean;
+export class RoleClaimRequest {
+  id: number = 0;
+  roleId: string ='';
+  type: string = '';
+  value: string = '';
+  description: string = '';
+  group: string ='';
+  selected: boolean = false;
 }
-export interface PermissionRequest {
-  roleId: string;
-  roleClaims: RoleClaimRequest[];
+
+export class PermissionRequest {
+  roleId: string = '';
+  roleClaims!: RoleClaimRequest[] ;
 }

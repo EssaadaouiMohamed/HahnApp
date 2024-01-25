@@ -15,9 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [ 
+  
+    DeleteConfirmationDialogComponent
   ],
   imports: [
     CommonModule,

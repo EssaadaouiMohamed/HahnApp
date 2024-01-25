@@ -9,7 +9,6 @@ using HahnApp.Shared.Constants.Permission;
 
 namespace HahnApp.Server.Controllers.Communication
 {
-    [Authorize(Policy = Permissions.Communication.Chat)]
     [Route("api/[controller]")]
     [ApiController]
     public class ChatsController : ControllerBase

@@ -1,5 +1,7 @@
-<div>
-  <button mat-raised-button color="primary" (click)="openRegisterUserPopup()">Register User</button>
+
+  <div style="margin: 10px 0px">
+    <button mat-raised-button color="primary" (click)="openRegisterUserPopup()">Register User</button>
+  </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Username Column -->
@@ -52,7 +54,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="manageRoles({{element.id}})">
+          <button mat-menu-item (click)="manageRoles(element.id)">
             Manage roles
           </button>
         </mat-menu>
@@ -62,4 +64,3 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>
