@@ -1,5 +1,4 @@
 # HahnApp
-# Project Name
 
 ## Overview
 
@@ -45,7 +44,7 @@ This project is a comprehensive web application integrating Angular with ASP.NET
 
 ### Installation
 
-1. **Clone the Repository**: `git clone [https://github.com/EssaadaouiMohamed/HahnApp.git]`
+1. **Clone the Repository**: `git clone https://github.com/EssaadaouiMohamed/HahnApp.git`
 2. **Database Setup**: Configure SQL Server and update connection strings in `appsettings.json`.
 3. **Backend Setup**: Navigate to the ASP.NET Core project directory and run `dotnet restore` followed by `dotnet run`.
 4. **Frontend Setup**: Navigate to the Angular project directory and run `npm install` followed by `ng serve`.
@@ -66,7 +65,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [mohamedessaadaoui02@gmail.com]
+ESSAADAOUI Mohammed - mohamedessaadaoui02@gmail.com
 
 Project Link: [https://github.com/EssaadaouiMohamed/HahnApp](https://github.com/EssaadaouiMohamed/HahnApp)
 
