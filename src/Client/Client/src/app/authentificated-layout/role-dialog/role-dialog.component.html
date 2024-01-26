@@ -1,12 +1,6 @@
 <h2 mat-dialog-title>{{ isEditMode ? 'Edit' : 'Create' }} Role</h2>
-
 <mat-dialog-content>
-  <form [formGroup]="roleForm">
-    <mat-form-field>
-      <mat-label>ID</mat-label>
-      <input matInput formControlName="id" disabled>
-    </mat-form-field>
-
+  <form [formGroup]="roleForm" style="display:flex; flex-direction:column">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name">

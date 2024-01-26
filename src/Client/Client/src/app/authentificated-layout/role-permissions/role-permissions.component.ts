@@ -4,7 +4,7 @@ import { RoleService } from '../../services/role.service';
 import { CustomSnackbarService } from '../../services/snack-bar.service';
 import { Router } from '@angular/router';
 import { PermissionRequest } from '../../models/requests/permissionRequest';
-import { map } from 'rxjs/operators';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { plainToClass } from 'class-transformer';
 @Component({
   selector: 'app-role-permissions',
@@ -30,10 +30,14 @@ export class RolePermissionsComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.getRolePermissionsAsync();
+  async ngOnInit(): Promise<void> {
+    await this.getRolePermissionsAsync();
   }
-
+  getCounts(groupKey: string): string {
+    const selectedCount = this.groupedRoleClaims.get(groupKey)?.filter(c => c.selected).length || 0;
+    const totalCount = this.groupedRoleClaims.get(groupKey)?.length || 0;
+    return `${selectedCount}/${totalCount}`;
+  }
   private async getRolePermissionsAsync(): Promise<void> {
     const roleId = this.id;
     const result = await this.roleService.getRolePermissions(roleId);

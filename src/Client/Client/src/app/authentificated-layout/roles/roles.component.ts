@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from '../../shared/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { RoleDialogComponent } from '../role-dialog/role-dialog.component';
 import { RoleRequest } from '../../models/requests/roleRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-roles',
@@ -20,7 +21,8 @@ export class RolesComponent implements OnInit {
     private authService: AuthentificationService,
     private roleService: RoleService,
     private snackBar: CustomSnackbarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -37,16 +39,23 @@ export class RolesComponent implements OnInit {
     }
   }
 
-  managePermissions(id: string): void { /* ... */ }
 
+
+  managePermissions(id: string) {
+    this.router.navigate(['/role-permissions', id]);
+  }
   async addEditRole(id: string = ''): Promise<void> {
-    let role!: RoleRequest;
-    if (id != '') {
-      let r = this.roles.find(x => x.id == id);
-      role.id = r?.id;
-      role.name = r?.name!;
-      role.description = r?.description;
+    let role: RoleRequest = { id: '', name: '', description: '' };
+
+    if (id !== '') {
+      const r = this.roles.find(x => x.id === id);
+      if (r) {
+        role.id = r.id;
+        role.name = r.name;
+        role.description = r.description;
+      }
     }
+
     const dialogRef = this.dialog.open(RoleDialogComponent, {
       width: '500px',
       data: role

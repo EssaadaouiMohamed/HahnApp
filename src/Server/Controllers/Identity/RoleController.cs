@@ -62,7 +62,7 @@ namespace HahnApp.Server.Controllers
         /// <param name="roleId"></param>
         /// <returns>Status 200 Ok</returns>
         [Authorize(Policy = Permissions.RoleClaims.View)]
-        [HttpGet("ng serv")]
+        [HttpGet("permissions/{roleId}")]
         public async Task<IActionResult> GetPermissionsByRoleId([FromRoute] string roleId)
         {
             var response = await _roleService.GetAllPermissionsAsync(roleId);

@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/
     MatListModule,
     FormsModule,
     BrowserModule,
+    MatTabsModule,
     MatProgressBarModule,
     MatDialogModule,
     ReactiveFormsModule,
@@ -48,6 +50,7 @@ import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatTabsModule,
     FormsModule,
     BrowserModule,
     MatProgressBarModule,

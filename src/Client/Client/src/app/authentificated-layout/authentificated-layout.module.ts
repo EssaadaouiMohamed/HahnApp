@@ -9,6 +9,7 @@ import { RegisterUserComponent } from './users-list/register-user/register-user.
 import { UserRolesComponent } from './user-roles/user-roles.component';
 import { RolesComponent } from './roles/roles.component';
 import { RolePermissionsComponent } from './role-permissions/role-permissions.component';
+import { RoleDialogComponent } from './role-dialog/role-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +19,14 @@ import { RolePermissionsComponent } from './role-permissions/role-permissions.co
     RegisterUserComponent,
     UserRolesComponent,
     RolesComponent,
-    RolePermissionsComponent
+    RolePermissionsComponent,
+    RoleDialogComponent
+
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
   ],
   
 })

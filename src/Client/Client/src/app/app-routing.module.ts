@@ -8,6 +8,7 @@ import { UserProfileComponent } from './authentificated-layout/user-profile/user
 import { UsersListComponent } from './authentificated-layout/users-list/users-list.component';
 import { UserRolesComponent } from './authentificated-layout/user-roles/user-roles.component';
 import { RolesComponent } from './authentificated-layout/roles/roles.component';
+import { RolePermissionsComponent } from './authentificated-layout/role-permissions/role-permissions.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
   children:
     [
       { path: 'user-roles/:id', component: UserRolesComponent },
+      { path: 'role-permissions/:id', component: RolePermissionsComponent },
       { path: 'users', component: UsersListComponent },
       { path: 'roles', component: RolesComponent },
       { path: 'user-profile', component: UserProfileComponent }

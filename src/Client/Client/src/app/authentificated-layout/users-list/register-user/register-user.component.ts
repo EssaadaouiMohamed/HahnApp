@@ -6,7 +6,7 @@ import { CustomSnackbarService } from '../../../services/snack-bar.service';
 import { RegisterUserRequest } from '../../../models/requests/registerUserRequest';
 import { MatDialogRef } from '@angular/material/dialog';
 
-@Component({
+@Component({  
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css'
