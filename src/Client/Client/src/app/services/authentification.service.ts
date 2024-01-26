@@ -52,6 +52,14 @@ export class AuthentificationService {
 
     try {
       if (this.jwtHelperService.isTokenExpired(token)) {
+        let ref_token = localStorage.getItem('refresh_token');
+        if (ref_token) {
+          let req: RefreshTokenRequest = {
+            token: token,
+            refreshToken: ref_token
+          }
+            await this.refreshToken(req);
+        }
         return this.isAuth.asObservable();
       }
       let decodedJwt = await this.jwtHelperService.decodeToken(token);
@@ -73,12 +81,15 @@ export class AuthentificationService {
     return this.userClaims;
   }
 
-  async refreshToken(req: RefreshTokenRequest): Promise<TResult<TokenResponse>> {
+  async refreshToken(req: RefreshTokenRequest): Promise<void> {
     const response$ = this.http.post<TResult<TokenResponse>>(`api/identity/token/refresh`, req);
       const response = await firstValueFrom(response$);
 
       if (response.succeeded) {
-        return response;
+        this.saveLoginData(response.data);
+        let decodedJwt = await this.jwtHelperService.decodeToken(response.data.token);
+        this.userClaims = this.fillUserClaimsFromDecodedToken(decodedJwt);
+        this.isAuth.next(true);
       } else {
         console.log(response.messages[0]);
         throw new Error(response.messages[0]);

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PermissionResponse, RoleClaimResponse } from '../../models/responses/permissionResponse';
 import { RoleService } from '../../services/role.service';
 import { CustomSnackbarService } from '../../services/snack-bar.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PermissionRequest } from '../../models/requests/permissionRequest';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { plainToClass } from 'class-transformer';
@@ -22,16 +22,26 @@ export class RolePermissionsComponent implements OnInit {
   private _searchString = "";
   private _canEditRolePermissions!: boolean;
   private _canSearchRolePermissions!: boolean;
-  private _loaded!: boolean;
+  isLoading = true;
 
   constructor(
     private roleService: RoleService,
     private snackBar: CustomSnackbarService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
+
   ) { }
 
   async ngOnInit(): Promise<void> {
+    try {
+
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id')!;
+    });
     await this.getRolePermissionsAsync();
+    } finally {
+      this.isLoading = false;
+    }
   }
   getCounts(groupKey: string): string {
     const selectedCount = this.groupedRoleClaims.get(groupKey)?.filter(c => c.selected).length || 0;
@@ -54,23 +64,36 @@ export class RolePermissionsComponent implements OnInit {
       });
 
       if (this._model) {
-        this.description = "Manage {0} {1}'s Permissions", this._model.roleId, this._model.roleName;
+        this.description = `Manage ${this._model.roleName}'s Permissions`;
       }
     } else {
       result.messages.forEach(error => {
         this.snackBar.openSnackBar(error, 'error');
       });
-      this.router.navigate(['/identity/roles']);
+      this.router.navigate(['/roles']);
     }
   }
 
   async saveAsync(): Promise<void> {
-    const request: PermissionRequest = plainToClass(PermissionRequest, this._model, { excludeExtraneousValues: true });
+    let request: PermissionRequest = { 
+      roleId: this.id,
+      roleClaims: Array.from(this.groupedRoleClaims.values()).flat().map(response => {
+      return {
+        id: response.id,
+        roleId: response.roleId,
+        type: response.type,
+        value: response.value,
+        description: response.description || '', // Using || '' to handle undefined values
+        group: response.group || '', // Same as above
+        selected: response.selected
+      }
+    })
+  }
     const result = await this.roleService.updateRolePermissions(request);
 
     if (result.succeeded) {
       this.snackBar.openSnackBar(result.messages[0], 'success');
-      this.router.navigate(['/identity/roles']);
+      this.router.navigate(['/roles']);
     } else {
       result.messages.forEach((error: string) => {
         this.snackBar.openSnackBar(error, 'error');
